@@ -1,0 +1,669 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red183\green111\blue247;\red23\green24\blue24;\red202\green202\blue202;
+\red54\green192\blue160;\red212\green212\blue212;\red113\green192\blue131;\red109\green115\blue120;\red246\green124\blue48;
+\red238\green46\blue56;}
+{\*\expandedcolortbl;;\cssrgb\c77255\c54118\c97647;\cssrgb\c11765\c12157\c12549;\cssrgb\c83137\c83137\c83137;
+\cssrgb\c23922\c78824\c69020;\cssrgb\c86275\c86275\c86275;\cssrgb\c50588\c78824\c58431;\cssrgb\c50196\c52549\c54510;\cssrgb\c98039\c56471\c24314;
+\cssrgb\c95686\c27843\c27843;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 import\cf4 \strokec4  \cf5 \strokec5 React\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  useState\cf6 \strokec6 ,\cf4 \strokec4  useEffect\cf6 \strokec6 ,\cf4 \strokec4  useRef \cf6 \strokec6 \}\cf4 \strokec4  \cf2 \strokec2 from\cf4 \strokec4  \cf7 \cb3 \strokec7 'react'\cf6 \cb3 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cf2 \cb3 \strokec2 import\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  \cf5 \strokec5 Play\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Star\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 X\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Mail\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Instagram\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Film\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Eye\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Wand2\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Sparkles\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Loader2\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \strokec4  \cf2 \strokec2 from\cf4 \strokec4  \cf7 \cb3 \strokec7 'lucide-react'\cf6 \cb3 \strokec6 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3 \strokec8 // --- CONFIGURA\'c7\'c3O GEMINI API ---\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  apiKey \cf6 \strokec6 =\cf4 \strokec4  \cf7 \cb3 \strokec7 ""\cf6 \cb3 \strokec6 ;\cf4 \strokec4  \cf8 \strokec8 // A chave ser\'e1 providenciada pelo ambiente de execu\'e7\'e3o\cf4 \cb1 \strokec4 \
+\
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  callGeminiAPI \cf6 \strokec6 =\cf4 \strokec4  \cf2 \strokec2 async\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 prompt\cf6 \strokec6 ,\cf4 \strokec4  systemInstruction\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  url \cf6 \strokec6 =\cf4 \strokec4  \cf7 \cb3 \strokec7 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 apiKey\cf6 \strokec6 \}\cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 ;\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  payload \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     contents\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\{\cf4 \strokec4  parts\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\{\cf4 \strokec4  text\cf6 \strokec6 :\cf4 \strokec4  prompt \cf6 \strokec6 \}]\cf4 \strokec4  \cf6 \strokec6 \}],\cf4 \cb1 \strokec4 \
+\cb3     systemInstruction\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  parts\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\{\cf4 \strokec4  text\cf6 \strokec6 :\cf4 \strokec4  systemInstruction \cf6 \strokec6 \}]\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 let\cf4 \strokec4  retries \cf6 \strokec6 =\cf4 \strokec4  \cf9 \strokec9 5\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3   \cf2 \strokec2 let\cf4 \strokec4  delay \cf6 \strokec6 =\cf4 \strokec4  \cf9 \strokec9 1000\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 while\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 retries \cf6 \strokec6 >\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 try\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 const\cf4 \strokec4  response \cf6 \strokec6 =\cf4 \strokec4  \cf2 \strokec2 await\cf4 \strokec4  fetch\cf6 \strokec6 (\cf4 \strokec4 url\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3         method\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "POST"\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3         headers\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  \cf7 \cb3 \strokec7 "Content-Type"\cf6 \cb3 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "application/json"\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3         body\cf6 \strokec6 :\cf4 \strokec4  \cf5 \strokec5 JSON\cf6 \strokec6 .\cf4 \strokec4 stringify\cf6 \strokec6 (\cf4 \strokec4 payload\cf6 \strokec6 )\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 \});\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf2 \strokec2 if\cf4 \strokec4  \cf6 \strokec6 (!\cf4 \strokec4 response\cf6 \strokec6 .\cf4 \strokec4 ok\cf6 \strokec6 )\cf4 \strokec4  \cf2 \strokec2 throw\cf4 \strokec4  \cf2 \strokec2 new\cf4 \strokec4  \cf5 \strokec5 Error\cf6 \strokec6 (\cf7 \cb3 \strokec7 `HTTP error! status: \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 response\cf6 \strokec6 .\cf4 \strokec4 status\cf6 \strokec6 \}\cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 );\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf2 \strokec2 const\cf4 \strokec4  result \cf6 \strokec6 =\cf4 \strokec4  \cf2 \strokec2 await\cf4 \strokec4  response\cf6 \strokec6 .\cf4 \strokec4 json\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 return\cf4 \strokec4  result\cf6 \strokec6 .\cf4 \strokec4 candidates\cf6 \strokec6 ?.[\cf9 \strokec9 0\cf6 \strokec6 ]?.\cf4 \strokec4 content\cf6 \strokec6 ?.\cf4 \strokec4 parts\cf6 \strokec6 ?.[\cf9 \strokec9 0\cf6 \strokec6 ]?.\cf4 \strokec4 text \cf6 \strokec6 ||\cf4 \strokec4  \cf7 \cb3 \strokec7 "A vis\'e3o permaneceu oculta nas sombras."\cf6 \cb3 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 \}\cf4 \strokec4  \cf2 \strokec2 catch\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 error\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3       retries\cf6 \strokec6 --;\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 retries \cf6 \strokec6 ===\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 )\cf4 \strokec4  \cf2 \strokec2 return\cf4 \strokec4  \cf7 \cb3 \strokec7 "Ocorreu um dist\'farbio na malha do espa\'e7o-tempo. A conex\'e3o com o or\'e1culo falhou. Tente novamente."\cf6 \cb3 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 await\cf4 \strokec4  \cf2 \strokec2 new\cf4 \strokec4  \cf5 \strokec5 Promise\cf6 \strokec6 (\cf4 \strokec4 resolve \cf6 \strokec6 =>\cf4 \strokec4  setTimeout\cf6 \strokec6 (\cf4 \strokec4 resolve\cf6 \strokec6 ,\cf4 \strokec4  delay\cf6 \strokec6 ));\cf4 \cb1 \strokec4 \
+\cb3       delay \cf6 \strokec6 *=\cf4 \strokec4  \cf9 \strokec9 2\cf6 \strokec6 ;\cf4 \strokec4  \cf8 \strokec8 // Exponential backoff\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3 \strokec8 // --- COMPONENTES AUXILIARES ---\cf4 \cb1 \strokec4 \
+\
+\cf8 \cb3 \strokec8 // Componente da Logo Vetorial Reutiliz\'e1vel\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  \cf5 \strokec5 VisoesLogo\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 (\{\cf4 \strokec4  className \cf6 \strokec6 \})\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf6 \strokec6 <\cf4 \strokec4 svg id\cf6 \strokec6 =\cf7 \cb3 \strokec7 "Layer_1"\cf4 \cb3 \strokec4  xmlns\cf6 \strokec6 =\cf7 \cb3 \strokec7 "http://www.w3.org/2000/svg"\cf4 \cb3 \strokec4  viewBox\cf6 \strokec6 =\cf7 \cb3 \strokec7 "0 0 841.89 595.28"\cf4 \cb3 \strokec4  className\cf6 \strokec6 =\{\cf4 \strokec4 className\cf6 \strokec6 \}>\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 defs\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 style\cf6 \strokec6 >\{\cf7 \cb3 \strokec7 `\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb3 \strokec7         .st0, .st2, .st3, .st4, .st5, .st7, .st8, .st10, .st12, .st14 \{ fill: #ffffff; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .st1, .st6, .st9, .st11, .st13 \{ fill: transparent; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7       `\cf6 \cb3 \strokec6 \}</\cf4 \strokec4 style\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 </\cf4 \strokec4 defs\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st2"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M305.93,176.6l-1.48-11.1c-1.3-9.75-13.27-6.98-18.6-9.22,4.56-.79,8.86-.65,13.17-2.02,7.34-2.34,5.21-10.31,6.82-16.17l1.26,9.61c1.13,8.62,11.14,7.06,16.41,8.79-5.03,2.29-14.42-.54-16.31,8.29-.84,3.91-.84,7.69-1.27,11.81Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st4"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M595.04,250.77l-1.57-9.71c-.43-2.68-2.3-4.46-5.04-4.82l-8.15-1.08c3.38-2.04,9.95.82,12.76-4.98,1.63-3.36.71-6.62,1.56-10.47,1.34,3.2.32,6.11,1.3,9.07,2.58,7.79,11.14,4.35,15.98,6.52-3.98.26-7.84,0-11.82,1.26-5.34,1.68-4.57,9.9-5.01,14.21Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st14"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M359.12,117.36c.78,7.71,5.85,13.89,11.72,16.95,7.31,3.81,14.86,3.14,22.15-.72-8.02,11.4-24.22,14.24-35.49,6.5-8.76-6.02-12.44-16.32-9.6-26.36,2.57-9.09,11.18-16.62,21.74-16.84-7.35,4.78-11.42,11.57-10.52,20.47Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st4"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M416.82,110.21c-3.41,3.28-1.19,11.46-3.21,10.85.15-3.53-.13-7-1.64-10.19-1.69-3.55-10.88-2.5-13.16-3.67,4.15-.62,9.25.4,12.51-2.61,2.83-2.62,1.81-7.57,2.56-11.21.92,2.11.66,4.84,1.01,7.3,1.11,7.95,7.99,4.51,12.82,7.23-3.42.28-8-.46-10.88,2.31Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st10"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M455.17,138.15l-1.64-9.19c-.82-4.58-10.83-3.85-13.48-4.63,3.49-.71,6.69-.37,9.97-1.35,5.67-1.7,3.63-8.59,5.15-12.56.39,3.11-.18,11.99,5,12.68l9.51,1.27c-4.89.93-12.92-.64-13.54,5.83-.91,2.65-.64,5.2-.97,7.96Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3     \cf6 \strokec6 </\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st10"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M272.16,184.05c-2.9,2.12-1.34,5.77-2.51,8.78-1.27-2.87.08-6.06-2.09-8.37-1.86-1.98-4.84-1.27-7.44-2.25,2.37-.89,5.65-.19,7.45-2.42,2.1-2.6,1.21-6.22,1.76-9.27,1.81.66-1.13,10.18,5.18,10.87l6.96.76c-3.05.84-6.57-.09-9.3,1.9Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st12"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M269.15,330.91c-6.61,2.29-3.18,6.77-10.98,5.21.87-3.34,3.15-5.76,5.61-8.49-10.93,2.91-6,10.92-14.62,8.45,10.79-18.21,17.51-8.74,31.64-15.13l37.78-17.07,14.53-6.62c3.53-10.35,8.1-24.12,16.98-31-3.07.1-4.41,2.39-6.93,3.15.6-4.9,3.02-9.18,2.97-14.63l-9.57,16.47c-3.53,6.07-6.03,12.28-7.39,19.14-.31,1.58-1.09,2.55-2.5,3.28l-27.76,14.22c-6.55,3.36-12.79,6.48-19.6,9.19-13.38,5.34-15.67,1.16-24.77,7.1-10.22,6.67-7,12.51-19.11,12.4l-11.24-.1c-.05-2.31,1.4-3.52,2.06-5.29-2.77.58-3.2,3.35-4.84,4.81-1.38,1.23-4.15.24-5.72.25,1.4-4.07,3.7-7.03,6.87-9.99-5.41.68-8.31,5.14-10.06,9.84-1.86.6-3.68.38-6.13.14,11.55-20.95,13.63-7.68,38-16.79,17.76-6.64,34.74-13.99,52.17-21.44l23.19-9.91,4.2,2.08c.29-10.1,2.96-19.78,9.8-27.36-6.85-3.21-13.19-8.6-20.95-8.58l-9.69,6.49c-2.61,1.75-6.16,2.46-8.81.32s-4.3-5.35-6.26-8.22c7.6-1.4,5.26,3.83,8.52,4.35.77.12,1.62-.06,2.05-.91-8.91-3.57,3.8-5.93-.96-13.87-2.23-3.73-6.53-5.14-10.71-4.37-3.7.68-5.4,3.64-4.98,7.74-2.94-1.31-13.39-13.58-13.32-14.18s.14-2.04.98-2.67c7.15-5.37,14.19-11.27,22.73-14.69,14.07-5.65,28.76-8.15,44.15-9.64,1.99,4.64-.03,9.01-3.97,12.21,3.7-.38,5.85-3.11,8.05-5.71,18.35,1.6,36.47,5.31,53.48,11.74-11.08,7.45-22.59,12.43-34.27,17.58,6.99-.52,12.94-2.28,19.21-4.04,7.52-2.1,14.18-6.22,20.11-11.05.99-1.53,2.25-3.09,1.08-4.68-4.99-6.78-11.83-10.83-19.92-14.04l36.85-6.45c47.87-8.38,86.41-18.43,132.37-33.91,25.06-8.44,51.7-18.43,73.93-32.85-2.09,11.92-8.92,21.41-18.42,28.07-13.42,9.41-48.27,21.43-64.59,26.09l-45.18,12.88c-1.07.31-1.24,2.31-1.14,3.2,30.13-6.38,59.57-13.83,88.52-24.19l28.53-10.21c-5.38,11.47-14.48,19.48-25.55,24.68-27.13,12.74-69.23,19.78-99.04,24.23-.79.37-1.05,1.47-1.56,2.47,32.55-2.03,65.22-7.57,96.78-18.76-13.93,16.17-28.24,23.28-49.23,26.96-19.74,3.45-39.3,4.45-59.33,4.3-1.82-.01-3.39.92-3.34,2.66,13.92,1.15,26.98,1.35,40.46.2l24.88-2.12c-19.39,10.36-47.24,12.16-69.08,11.87-6.24-.08-12.11-.47-18,1.44l25.36,5.33c20.62,4.33,40.26,10.5,60.43,16.71l38.86,11.96c21,6.46,67.7,20.19,86.78,8.12,4.98-3.15,6.41-9.02,3.32-14.08-9.81-16.07-46.61-13.73-45.34-2.24.21,1.87,1.65,3.47,3.71,4.84-2.06-.45-4.11-1.18-5.98-2.64-2.99-2.34-3.37-6.45-.83-9.4,2.1-2.45,5-4.21,8.27-5.2,11.2-3.38,23.35-2.82,33.92,2.12,4.67,2.18,8.67,5.04,11.34,9.18,5.84,9.06,2.6,19.83-7.07,24.58-16.5,8.09-40.83,4.62-58.67,1.1-17.33-3.42-33.8-7.63-50.83-12.25l-33.64-9.13c11.01,9.43,21.55,17.96,31.51,27.85,1.79,1.78,4.05,2.75,6.51,2.84,7.26.28,14.05-.36,21.22-1.32,10.47,6.09,20.58,11.58,31.46,16.46,5.52,2.48,10.99,4.83,16.91,6.11l8.22-2.91,18.51,9.73-19.01,1.47c-3.98.31-7.38-.16-11.2-1.35-16.41-5.15-32.38-10.24-49.12-14.44l-48.62,7.98c-13.21-7.66-25.17-15.99-37.8-24.24-7.72-5.04-14.5-10.33-23.03-14.94,8.68,8.84,18.05,17.03,28.21,24.56l-20.79-5.93c-9.5-2.71-19.41-7.18-29.41-6.97-14.39.3-28.03,4.44-42.48,4.66-8.62.13-16.77.99-25.66-.82l5.98-13.58c-7.07,6.39-12.1,14.52-15.99,23.45-.99,2.28-2.1,3.44-4.58,3.72-10.2,1.14-20.11,1.99-30.21,4.09-13.71,2.84-26.63,6.77-40.06,10.59-7.12,2.03-13.89,3.31-21.44,2.75-.24-1.85,1.07-3.23,2.27-4.97ZM403.99,239.2c8.8,3.78,18.13,4.11,28.14,4.73-12.04,6.15-25.08,8.34-38.15,10.15,36.32,3.89,76.32-21.87,92.99-54.04-13.78,5.12-26.83,8.93-40.88,10.89-4.2.58-7.97,1.37-11.75,2.16,14.32,1.69,27.52-.72,41.35-4.27-4.23,10.49-22.16,16.23-31.59,16.6l-21.17.83c10.61,2.7,21.23,3.29,32.79,2.08-14.08,15.26-33.01,11.97-51.75,10.88ZM331.66,209.4c.1-1.35-4.65-1.64-5.83-.95-.24,3.22-1.52,5.51-2.82,8.1,2.62-1.45,8.5-5.18,8.64-7.14ZM283.87,224.09c7.43-.31,15.44-2.63,17.97-7.81-4.23,1.17-7.49,1.15-11.3,1.37.29,1.62,1.9,1.28,3.35,2.16-3.17,2.12-6.83,2.58-10.02,4.28Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st5"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M600.74,332.42l18.6,12.05-20.47,2.08c-5.48.56-10.29-.17-15.07-3l-29.09-17.22c6.04-1.36,12.57-1.98,18.36.49l16.52,7.04c6.15,2.62,9.29-2.64,11.14-1.44Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st2"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M569.71,302.96c-17.76-.83-14.28,3.47-25.17-8.29l25.17,8.29Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st1"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M403.99,239.2c18.74,1.09,37.67,4.38,51.75-10.88-11.56,1.22-22.19.62-32.79-2.08l21.17-.83c9.42-.37,27.36-6.11,31.59-16.6-13.83,3.55-27.03,5.95-41.35,4.27,3.77-.78,7.55-1.57,11.75-2.16,14.05-1.95,27.1-5.76,40.88-10.89-16.67,32.17-56.67,57.92-92.99,54.04,13.07-1.8,26.11-3.99,38.15-10.15-10.01-.62-19.34-.95-28.14-4.73Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st6"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M283.87,224.09c3.19-1.7,6.85-2.16,10.02-4.28-1.44-.89-3.06-.54-3.35-2.16,3.81-.23,7.07-.2,11.3-1.37-2.53,5.18-10.55,7.51-17.97,7.81Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st13"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M331.66,209.4c-.14,1.97-6.02,5.69-8.64,7.14,1.3-2.58,2.58-4.87,2.82-8.1,1.18-.68,5.92-.4,5.83.95Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3     \cf6 \strokec6 </\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st0"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M357.51,340.54l16.13-.04c.54,2.19.24,4.57-.58,6.82-6.65,18.28-30.08,52.19-41.34,69.94l-8.24,12.99c-2.63-24.94-7.69-55.72-20.26-77.14-3.73-6.35-9.43-9.55-17.23-9.78,4.98-1.99,10.09-2.8,15.45-3.27,10.8-.57,17.2,6.72,21.31,15.72,3.44,7.81,6.16,15.68,7.65,24.09l4.17,23.48c10.15-15.48,23.04-34.82,26-52.79.23-2.28.05-4.68-1.84-6.04s-4.12-1.35-6.57-1.81c1.45-1.35,3.23-2.16,5.36-2.16Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st14"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M479.59,402.19c-8.34,8.13-20.45,11.27-31.47,8.23-7.87-2.17-12.65-8.86-12.62-16.86.04-11.15,7.19-20.31,17.37-24.35,7.69-3.06,15.87-3.74,23.55-.61,6.16,2.51,9.95,7.7,10.35,14.37.43,7.24-1.67,13.87-7.18,19.24ZM462.55,406.79c9.68-3.84,12.7-19.28,10.55-28.98-1.08-4.87-5.03-7.9-9.99-7.33-11.01,1.27-16.59,18.38-13.39,29.9,1.6,5.75,7.08,8.68,12.83,6.4Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st5"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M514.4,405.27c6.41.26,11.4-2.41,17.25-5.43-6.53,9.68-19.44,13.78-30.63,10.56-4.43-1.27-8.39-4.5-9.81-8.77-2.87-8.64-.29-17.81,5.82-24.38,6.54-7.03,15.82-11.27,25.39-10.42,3.91.35,7.9,1.99,9.79,5.32,2.02,3.55.76,7.94-1.74,10.91-5.95,7.06-18.13,9.13-27.47,9.64-.95,6.97,4.15,12.28,11.41,12.57ZM522.18,375.31c-.08-1.74-.86-3.19-1.81-3.93-3.46-2.71-8.97.62-11.92,4.38-3.03,3.87-4.87,8.51-5.3,13.5,8.07.36,19.45-5,19.03-13.94Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st7"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M565.74,405.98c-7.83,7.01-22.36,6.55-32.23,3.06-.67-2.71,1.08-13.1,4.2-13.19,1.37-.04,1.23,7.09,4.28,9.77,3.85,3.37,10.07,2.91,14.22.31,1.87-1.17,2.59-3.11,2.54-4.95-.05-1.73-1.15-3.59-2.91-4.65l-11.72-7.07c-2.91-1.76-4.98-4.47-5.23-7.34-1.33-15.09,22.09-17.64,33.17-13.54.28,2.95-.44,11.87-3.62,12.33-1.53.23-1.46-6.57-5.05-9.02-3.38-2.31-8.16-1.92-11.52.11-1.73,1.04-2.49,2.78-2.62,4.46-.14,1.78.99,3.63,2.75,4.69l11.66,7.05c3.19,1.93,5.49,4.65,5.84,8.06.38,3.73-.8,7.24-3.76,9.9Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st5"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M430.32,397.09c.5,15.38-25.45,17.1-36.25,11.67-.48-2.5,1.59-12.48,3.89-12.89,2.02-.36,1.46,7.09,5.1,10.07,3.83,3.13,10.02,2.74,13.96.16,1.74-1.14,2.42-2.98,2.49-4.55.34-6.93-16.23-9.84-19.48-17.23-2.43-5.53.52-11.2,5.72-14.04,8.14-4.44,17.68-4.65,26.68-1.81.74,2.15-.79,13.42-4.05,12.18-1.6-2.67-1.38-6.45-3.98-8.6-3.5-2.89-9.08-2.32-12.65.12-1.6,1.1-2.24,2.91-2.14,4.49s1.16,3.16,2.7,4.1l12.39,7.56c3.37,2.06,5.5,5.03,5.62,8.77Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st7"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M391.94,404.37c-4.66,4.26-17.38,9.63-22.32,4.54-7.33-7.55,9.13-29.53,5.18-34.62-1.81-2.33-6.7-.28-9.06-1.03,3.03-2.61,18.8-7.13,22.98-5.91,2.76,8.32-12.21,31.9-6.86,36.69,2.79,2.5,6.31.35,10.08.34Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st7"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M487.74,351.84c-11.2,21.42-22.57-4.77-39.88,9.9,3.06-8.62,9.92-13.05,18.9-11.17,8.63,1.8,13.39,6.78,20.98,1.28Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st7"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M394.86,349.19c1.89,3.46.04,7.04-2.32,8.91-2.67,2.11-6.56,2.73-9.24.26-3.3-3.03-2.41-7.93.65-10.65s8.68-2.62,10.91,1.48Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st11"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M462.55,406.79c-5.75,2.28-11.23-.65-12.83-6.4-3.2-11.52,2.38-28.63,13.39-29.9,4.96-.57,8.9,2.46,9.99,7.33,2.16,9.7-.86,25.14-10.55,28.98Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st9"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M522.18,375.31c.42,8.94-10.96,14.3-19.03,13.94.44-4.99,2.27-9.62,5.3-13.5,2.94-3.76,8.46-7.08,11.92-4.38.95.74,1.73,2.19,1.81,3.93Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3     \cf6 \strokec6 </\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st8"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M443.91,446.41c-.8-3.05.06-6.08-.58-9.31l-6.09,7.82-5.88-7.86-.45,9.33c-.27.51-1.88.56-2.57.06l-.16-15.76c.75-.19,1.95-.42,2.38.2l6.86,9.93,5.96-9.33c.53-.83,2.89-1.52,2.99-.29.42,5.09.1,9.83.04,14.95,0,.81-2.35.83-2.5.24Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st8"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M487.48,445.9c-3.63,1.67-7.82,1.13-10.93-.82.2-.89.74-1.57,1.36-2.14,2.27,1.54,8.96,2.14,8.91-.7-.01-.62-.55-1.29-1.37-1.51l-5.12-1.4c-1.93-.53-3.14-1.98-3.27-3.74s.61-3.55,2.43-4.36c3.16-1.4,6.62-.99,9.57.57-.24.75-.67,1.89-1.28,1.81-1.35-.18-6.95-1.89-7.55,1.03-.74,3.59,8.99,1.74,9.6,6.71.19,1.59-.32,3.62-2.34,4.55Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st8"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M467.42,439.73l-7.3.45c-4.14,8.18,11.38.43,8.57,6.42l-12.04.08-.05-16.09h10.13c.66.01,1.42.16,1.64.51,2.17,3.41-6.83,1.36-8.65,2.12-.29,1.33-.31,2.57.02,3.99,2.52.56,4.85-.04,7.5.33.63.09.74,2.15.17,2.19Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st3"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M384.34,438.14c.62.15.56,2.08,0,2.17-2.34.37-5.33-.22-7.69.39-.33,1.91.03,3.51-.17,5.4-.09.87-2.74.95-2.81.27-.49-5.06-.16-10.26-.19-15.72,3.83-.1,7.3-.11,11.19.03,1,.04.99,2.29.13,2.32l-7.8.28c-.39,1.01-.96,3.68.12,4.3,2.06,1.18,4.57-.05,7.22.57Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 path className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st10"\cf4 \cb3 \strokec4  d\cf6 \strokec6 =\cf7 \cb3 \strokec7 "M411.15,443.88c3.13,1.26,10.7-1.79,8.28,2.7-3.79.32-7.76.23-11.49.02l.07-15.65c.55-.62,2.27-.54,2.89,0l.25,12.93Z"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 rect className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "st3"\cf4 \cb3 \strokec4  x\cf6 \strokec6 =\cf7 \cb3 \strokec7 "387.91"\cf4 \cb3 \strokec4  y\cf6 \strokec6 =\cf7 \cb3 \strokec7 "437.09"\cf4 \cb3 \strokec4  width\cf6 \strokec6 =\cf7 \cb3 \strokec7 "16.17"\cf4 \cb3 \strokec4  height\cf6 \strokec6 =\cf7 \cb3 \strokec7 "3.14"\cf4 \cb3 \strokec4  transform\cf6 \strokec6 =\cf7 \cb3 \strokec7 "translate(-43.1 834.16) rotate(-89.94)"\cf4 \cb3 \strokec4 />\cb1 \
+\cb3     \cf6 \strokec6 </\cf4 \strokec4 g\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 </\cf4 \strokec4 svg\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 );\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  \cf5 \strokec5 StarBackground\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 particles\cf6 \strokec6 ,\cf4 \strokec4  setParticles\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 ([]);\cf4 \cb1 \strokec4 \
+\
+\cb3   useEffect\cf6 \strokec6 (()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 const\cf4 \strokec4  newParticles \cf6 \strokec6 =\cf4 \strokec4  \cf5 \strokec5 Array\cf6 \strokec6 .\cf2 \strokec2 from\cf6 \strokec6 (\{\cf4 \strokec4  length\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 400\cf4 \strokec4  \cf6 \strokec6 \}).\cf4 \strokec4 map\cf6 \strokec6 ((\cf4 \strokec4 _\cf6 \strokec6 ,\cf4 \strokec4  i\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 const\cf4 \strokec4  size \cf6 \strokec6 =\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 random\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 3\cf4 \strokec4  \cf6 \strokec6 +\cf4 \strokec4  \cf9 \strokec9 1\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3       \cf8 \strokec8 // Cores Psicod\'e9licas: Magenta, Ciano, Violeta, Verde-Menta e Branco P\'e9rola\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 const\cf4 \strokec4  colors \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 [\cf7 \cb3 \strokec7 '#ff71ce'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf7 \cb3 \strokec7 '#01cdfe'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf7 \cb3 \strokec7 '#b967ff'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf7 \cb3 \strokec7 '#05ffa1'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf7 \cb3 \strokec7 '#ffffff'\cf6 \cb3 \strokec6 ];\cf4 \cb1 \strokec4 \
+\cb3       \cf2 \strokec2 const\cf4 \strokec4  color \cf6 \strokec6 =\cf4 \strokec4  colors\cf6 \strokec6 [\cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 floor\cf6 \strokec6 (\cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 random\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  colors\cf6 \strokec6 .\cf4 \strokec4 length\cf6 \strokec6 )];\cf4 \cb1 \strokec4 \
+\cb3       \cb1 \
+\cb3       \cf2 \strokec2 return\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3         id\cf6 \strokec6 :\cf4 \strokec4  i\cf6 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3         x\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 (\cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 random\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 -\cf4 \strokec4  \cf9 \strokec9 0.5\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 4000\cf6 \strokec6 ,\cf4 \strokec4  \cb1 \
+\cb3         y\cf6 \strokec6 :\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 random\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 300\cf4 \strokec4  \cf6 \strokec6 +\cf4 \strokec4  \cf9 \strokec9 50\cf6 \strokec6 ,\cf4 \strokec4      \cb1 \
+\cb3         size\cf6 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3         color\cf6 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3         duration\cf6 \strokec6 :\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 random\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 8\cf4 \strokec4  \cf6 \strokec6 +\cf4 \strokec4  \cf9 \strokec9 4\cf6 \strokec6 ,\cf4 \strokec4  \cb1 \
+\cb3         delay\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 -(\cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 random\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 10\cf6 \strokec6 ),\cf4 \strokec4     \cb1 \
+\cb3         twinkleDuration\cf6 \strokec6 :\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 random\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 1.5\cf4 \strokec4  \cf6 \strokec6 +\cf4 \strokec4  \cf9 \strokec9 0.5\cf6 \strokec6 ,\cf4 \strokec4  \cb1 \
+\cb3       \cf6 \strokec6 \};\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 \});\cf4 \cb1 \strokec4 \
+\cb3     setParticles\cf6 \strokec6 (\cf4 \strokec4 newParticles\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \},\cf4 \strokec4  \cf6 \strokec6 []);\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 return\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#010103]"\cf4 \cb3 \strokec4  style\cf6 \strokec6 =\{\{\cf4 \strokec4  perspective\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 '600px'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  perspectiveOrigin\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 '50% 50%'\cf4 \cb3 \strokec4  \cf6 \strokec6 \}\}>\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 \{\cf8 \strokec8 /* Fundo Escuro Base */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 bg-[#010103]"\cf4 \cb3 \strokec4 ></div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute top-[50%] left-[50%] w-0 h-0 z-0"\cf4 \cb3 \strokec4  style\cf6 \strokec6 =\{\{\cf4 \strokec4  transformStyle\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'preserve-3d'\cf4 \cb3 \strokec4  \cf6 \strokec6 \}\}>\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 \{\cf4 \strokec4 particles\cf6 \strokec6 .\cf4 \strokec4 map\cf6 \strokec6 ((\cf4 \strokec4 p\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 <\cf4 \strokec4 div\cb1 \
+\cb3             key\cf6 \strokec6 =\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 id\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3             className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute"\cf4 \cb1 \strokec4 \
+\cb3             style\cf6 \strokec6 =\{\{\cf4 \cb1 \strokec4 \
+\cb3               \cf7 \cb3 \strokec7 '--startX'\cf6 \cb3 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 x\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3               \cf7 \cb3 \strokec7 '--startY'\cf6 \cb3 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 y\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3               animation\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `flyTowardsCamera \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 duration\cf6 \strokec6 \}\cf7 \cb3 \strokec7 s linear infinite`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3               animationDelay\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 delay\cf6 \strokec6 \}\cf7 \cb3 \strokec7 s`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3               transformStyle\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'preserve-3d'\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3               opacity\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 \}\}\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 div \cb1 \
+\cb3               className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "rounded-full"\cf4 \cb1 \strokec4 \
+\cb3               style\cf6 \strokec6 =\{\{\cf4 \cb1 \strokec4 \
+\cb3                 marginLeft\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{-\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 size \cf6 \strokec6 /\cf4 \strokec4  \cf9 \strokec9 2\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 marginTop\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{-\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 size \cf6 \strokec6 /\cf4 \strokec4  \cf9 \strokec9 2\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 width\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 size\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 height\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 size\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 backgroundColor\cf6 \strokec6 :\cf4 \strokec4  p\cf6 \strokec6 .\cf4 \strokec4 color\cf6 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 boxShadow\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `0 0 \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 size \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 3\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px 1px \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 color\cf6 \strokec6 \}\cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 animation\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `twinkleStar \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 p\cf6 \strokec6 .\cf4 \strokec4 twinkleDuration\cf6 \strokec6 \}\cf7 \cb3 \strokec7 s ease-in-out infinite alternate`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 \}\}\cf4 \cb1 \strokec4 \
+\cb3             />\cb1 \
+\cb3           \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 ))\}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 style\cf6 \strokec6 >\{\cf7 \cb3 \strokec7 `\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb3 \strokec7         @keyframes flyTowardsCamera \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           0% \{ transform: translate3d(var(--startX), var(--startY), -2000px); opacity: 0; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           10% \{ opacity: 1; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           80% \{ opacity: 1; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           100% \{ transform: translate3d(var(--startX), var(--startY), 600px); opacity: 0; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         @keyframes twinkleStar \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           0% \{ opacity: 0.3; transform: scale(0.7); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           100% \{ opacity: 1; transform: scale(1.3); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7       `\cf6 \cb3 \strokec6 \}</\cf4 \strokec4 style\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3 \strokec8 // --- COMPONENTE OR\'c1CULO (GEMINI AI) ---\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  \cf5 \strokec5 VisionOracle\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 idea\cf6 \strokec6 ,\cf4 \strokec4  setIdea\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf7 \cb3 \strokec7 ''\cf6 \cb3 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 loading\cf6 \strokec6 ,\cf4 \strokec4  setLoading\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf2 \strokec2 false\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 vision\cf6 \strokec6 ,\cf4 \strokec4  setVision\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf2 \strokec2 null\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  handleGenerate \cf6 \strokec6 =\cf4 \strokec4  \cf2 \strokec2 async\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 if\cf4 \strokec4  \cf6 \strokec6 (!\cf4 \strokec4 idea\cf6 \strokec6 .\cf4 \strokec4 trim\cf6 \strokec6 ())\cf4 \strokec4  \cf2 \strokec2 return\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3     setLoading\cf6 \strokec6 (\cf2 \strokec2 true\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3     setVision\cf6 \strokec6 (\cf2 \strokec2 null\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\
+\cb3     \cf2 \strokec2 const\cf4 \strokec4  systemInstruction \cf6 \strokec6 =\cf4 \strokec4  \cf7 \cb3 \strokec7 `Voc\'ea \'e9 um diretor de arte vision\'e1rio, psicod\'e9lico e m\'edstico de um est\'fadio de cinema chamado 'Vis\'f5es Filmes'. \cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb3 \strokec7     Sua fun\'e7\'e3o \'e9 atuar como um 'Or\'e1culo' criativo. O usu\'e1rio (cliente) vai te dar uma ideia crua, b\'e1sica ou confusa para um v\'eddeo.\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7     Voc\'ea deve transformar essa ideia num conceito visual cinematogr\'e1fico incr\'edvel, po\'e9tico e alucinante em no m\'e1ximo 2 par\'e1grafos.\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7     Use met\'e1foras visuais sobre luz, sombra, lentes, cores neon e magia. N\'e3o use sauda\'e7\'f5es formais, fale como um mestre criativo canalizando uma vis\'e3o.`\cf6 \cb3 \strokec6 ;\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf2 \strokec2 const\cf4 \strokec4  result \cf6 \strokec6 =\cf4 \strokec4  \cf2 \strokec2 await\cf4 \strokec4  callGeminiAPI\cf6 \strokec6 (\cf4 \strokec4 idea\cf6 \strokec6 ,\cf4 \strokec4  systemInstruction\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3     setVision\cf6 \strokec6 (\cf4 \strokec4 result\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3     setLoading\cf6 \strokec6 (\cf2 \strokec2 false\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 return\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full glass-panel p-8 rounded-2xl text-left space-y-6 flex flex-col relative overflow-hidden group"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 \{\cf8 \strokec8 /* Brilho de fundo decorativo */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute -top-20 -right-20 w-64 h-64 bg-[#b967ff]/10 rounded-full blur-[80px] group-hover:bg-[#b967ff]/20 transition-colors duration-700 pointer-events-none"\cf4 \cb3 \strokec4 ></div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 h3 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-2xl font-serif text-psychedelic text-white mb-2 flex items-center gap-2"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 <\cf5 \strokec5 Wand2\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#05ffa1]"\cf4 \cb3 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 24\cf6 \strokec6 \}\cf4 \strokec4  /> \cf5 \strokec5 O\cf4 \strokec4  \cf5 \strokec5 Or\cf10 \strokec10 \'e1\cf4 \strokec4 culo das \cf5 \strokec5 Vis\cf10 \strokec10 \'f5\cf4 \strokec4 es\cb1 \
+\cb3         \cf6 \strokec6 </\cf4 \strokec4 h3\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-sm text-gray-300"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Descreva\cf4 \strokec4  a sua ideia mais louca de forma crua\cf6 \strokec6 .\cf4 \strokec4  \cf5 \strokec5 O\cf4 \strokec4  nosso \cf5 \strokec5 Or\cf10 \strokec10 \'e1\cf4 \strokec4 culo de \cf5 \strokec5 Intelig\cf10 \strokec10 \'ea\cf4 \strokec4 ncia \cf5 \strokec5 Artificial\cf4 \strokec4  ir\cf10 \strokec10 \'e1\cf4 \strokec4  transform\cf10 \strokec10 \'e1\cf6 \strokec6 -\cf4 \strokec4 la num conceito cinematogr\cf10 \strokec10 \'e1\cf4 \strokec4 fico alucinante\cf6 \strokec6 .</\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 textarea \cb1 \
+\cb3         value\cf6 \strokec6 =\{\cf4 \strokec4 idea\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3         onChange\cf6 \strokec6 =\{(\cf4 \strokec4 e\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  setIdea\cf6 \strokec6 (\cf4 \strokec4 e\cf6 \strokec6 .\cf4 \strokec4 target\cf6 \strokec6 .\cf4 \strokec4 value\cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3         placeholder\cf6 \strokec6 =\cf7 \cb3 \strokec7 "Ex: Quero um videoclipe de rock numa floresta brilhante..."\cf4 \cb1 \strokec4 \
+\cb3         className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full h-28 glass-panel bg-transparent border border-white/20 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#ff71ce] focus:ring-1 focus:ring-[#ff71ce] transition-all resize-none relative z-10"\cf4 \cb1 \strokec4 \
+\cb3       />\cb1 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 button \cb1 \
+\cb3         onClick\cf6 \strokec6 =\{\cf4 \strokec4 handleGenerate\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3         disabled\cf6 \strokec6 =\{\cf4 \strokec4 loading \cf6 \strokec6 ||\cf4 \strokec4  \cf6 \strokec6 !\cf4 \strokec4 idea\cf6 \strokec6 .\cf4 \strokec4 trim\cf6 \strokec6 ()\}\cf4 \cb1 \strokec4 \
+\cb3         className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full py-4 glass-panel bg-[#b967ff]/10 hover:bg-[#b967ff]/30 text-white font-bold rounded-xl uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(185,103,255,0.2)] hover:shadow-[0_0_25px_rgba(185,103,255,0.5)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 relative z-10"\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 \{\cf4 \strokec4 loading \cf6 \strokec6 ?\cf4 \strokec4  \cf6 \strokec6 <\cf5 \strokec5 Loader2\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "animate-spin"\cf4 \cb3 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 20\cf6 \strokec6 \}\cf4 \strokec4  /> \cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 <\cf5 \strokec5 Sparkles\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 20\cf6 \strokec6 \}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#01cdfe]"\cf4 \cb3 \strokec4  />\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 \{\cf4 \strokec4 loading \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \cb3 \strokec7 'Canalizando Vis\'e3o...'\cf4 \cb3 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Gerar Vis\'e3o \uc0\u10024 '\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 button\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 \{\cf4 \strokec4 vision \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "mt-4 p-5 rounded-xl border border-[#05ffa1]/30 bg-[#05ffa1]/5 relative z-10 animate-[fadeIn_0.5s_ease-out]"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-sm text-gray-200 leading-relaxed italic border-l-2 border-[#05ffa1] pl-4"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3             \cf7 \cb3 \strokec7 "\{vision\}"\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 </\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3 \strokec8 // --- DADOS ---\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  portfolioData \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 1\cf6 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "Al\'e9m do Olhar"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  category\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "Brand Film"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  image\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=800"\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 2\cf6 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "Noites de Neon"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  category\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "Videoclipe"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  image\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "https://images.unsplash.com/photo-1618520330456-11f84b6f1ea6?auto=format&fit=crop&q=80&w=800"\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 3\cf6 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "Ecos do Sil\'eancio"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  category\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "Curta-Metragem"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  image\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=800"\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 4\cf6 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "M\'faltiplos \'c2ngulos"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  category\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "VFX / Anima\'e7\'e3o"\cf6 \cb3 \strokec6 ,\cf4 \strokec4  image\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&q=80&w=800"\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 ];\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  scrollItems \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'start'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf2 \strokec2 type\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'intro'\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'drone'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf2 \strokec2 type\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'image'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  src\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=1920'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Perspetivas A\'e9reas'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  subtitle\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'A magia capturada pelos c\'e9us com drones FPV'\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'cinema'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf2 \strokec2 type\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'image'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  src\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=1920'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Narrativa Cinematogr\'e1fica'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  subtitle\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Lentes que revelam hist\'f3rias invis\'edveis'\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 '360'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf2 \strokec2 type\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'image'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  src\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'https://images.unsplash.com/photo-1552168324-d612d77725e3?auto=format&fit=crop&q=80&w=1920'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Lentes Imersivas'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  subtitle\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Mergulhe no centro da a\'e7\'e3o com vis\'e3o 360\'b0'\cf4 \cb3 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \{\cf4 \strokec4  id\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'end'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf2 \strokec2 type\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'action'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  title\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Desperte a Magia'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  subtitle\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'Explore o nosso portf\'f3lio completo.'\cf4 \cb3 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 ];\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf4 \strokec4  \cf5 \strokec5 MagicalScrollHome\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 (\{\cf4 \strokec4  changeView \cf6 \strokec6 \})\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 progress\cf6 \strokec6 ,\cf4 \strokec4  setProgress\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf9 \strokec9 0\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 showHint\cf6 \strokec6 ,\cf4 \strokec4  setShowHint\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf2 \strokec2 false\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\
+\cb3   useEffect\cf6 \strokec6 (()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 let\cf4 \strokec4  timer\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 progress \cf6 \strokec6 ===\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3       timer \cf6 \strokec6 =\cf4 \strokec4  setTimeout\cf6 \strokec6 (()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3         setShowHint\cf6 \strokec6 (\cf2 \strokec2 true\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 \},\cf4 \strokec4  \cf9 \strokec9 10000\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 \}\cf4 \strokec4  \cf2 \strokec2 else\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3       setShowHint\cf6 \strokec6 (\cf2 \strokec2 false\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 return\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  clearTimeout\cf6 \strokec6 (\cf4 \strokec4 timer\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \},\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 progress\cf6 \strokec6 ]);\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  handleScroll \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 e\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     \cf2 \strokec2 const\cf4 \strokec4  max \cf6 \strokec6 =\cf4 \strokec4  e\cf6 \strokec6 .\cf4 \strokec4 target\cf6 \strokec6 .\cf4 \strokec4 scrollHeight \cf6 \strokec6 -\cf4 \strokec4  e\cf6 \strokec6 .\cf4 \strokec4 target\cf6 \strokec6 .\cf4 \strokec4 clientHeight\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3     setProgress\cf6 \strokec6 ((\cf4 \strokec4 e\cf6 \strokec6 .\cf4 \strokec4 target\cf6 \strokec6 .\cf4 \strokec4 scrollTop \cf6 \strokec6 /\cf4 \strokec4  max\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 scrollItems\cf6 \strokec6 .\cf4 \strokec4 length \cf6 \strokec6 -\cf4 \strokec4  \cf9 \strokec9 1\cf6 \strokec6 ));\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 return\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "fixed inset-0 z-10 bg-transparent pointer-events-none"\cf4 \cb3 \strokec4  style\cf6 \strokec6 =\{\{\cf4 \strokec4  animation\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'fadeOpacity 1s ease-out'\cf4 \cb3 \strokec4  \cf6 \strokec6 \}\}>\cf4 \cb1 \strokec4 \
+\cb3       \cb1 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-20"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 \{\cf4 \strokec4 scrollItems\cf6 \strokec6 .\cf4 \strokec4 map\cf6 \strokec6 ((\cf4 \strokec4 item\cf6 \strokec6 ,\cf4 \strokec4  i\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3           \cf2 \strokec2 const\cf4 \strokec4  rel \cf6 \strokec6 =\cf4 \strokec4  progress \cf6 \strokec6 -\cf4 \strokec4  i\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3           \cb1 \
+\cb3           \cf2 \strokec2 const\cf4 \strokec4  scale \cf6 \strokec6 =\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 max\cf6 \strokec6 (\cf9 \strokec9 0.01\cf6 \strokec6 ,\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 pow\cf6 \strokec6 (\cf9 \strokec9 2.5\cf6 \strokec6 ,\cf4 \strokec4  rel \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 1.8\cf6 \strokec6 ));\cf4 \cb1 \strokec4 \
+\cb3           \cf2 \strokec2 let\cf4 \strokec4  opacity \cf6 \strokec6 =\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3           \cb1 \
+\cb3           \cf2 \strokec2 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 rel \cf6 \strokec6 <=\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3             opacity \cf6 \strokec6 =\cf4 \strokec4  \cf9 \strokec9 1\cf4 \strokec4  \cf6 \strokec6 -\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 abs\cf6 \strokec6 (\cf4 \strokec4 rel\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 2.5\cf6 \strokec6 ;\cf4 \strokec4  \cb1 \
+\cb3           \cf6 \strokec6 \}\cf4 \strokec4  \cf2 \strokec2 else\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3             opacity \cf6 \strokec6 =\cf4 \strokec4  \cf9 \strokec9 1\cf4 \strokec4  \cf6 \strokec6 -\cf4 \strokec4  rel \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 1.8\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\
+\cb3           \cf2 \strokec2 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 opacity \cf6 \strokec6 <=\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 )\cf4 \strokec4  \cf2 \strokec2 return\cf4 \strokec4  \cf2 \strokec2 null\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\
+\cb3           \cf2 \strokec2 const\cf4 \strokec4  translateY \cf6 \strokec6 =\cf4 \strokec4  rel \cf6 \strokec6 <\cf4 \strokec4  \cf9 \strokec9 0\cf4 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 abs\cf6 \strokec6 (\cf4 \strokec4 rel\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 20\cf4 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3           \cf2 \strokec2 const\cf4 \strokec4  blur \cf6 \strokec6 =\cf4 \strokec4  rel \cf6 \strokec6 <\cf4 \strokec4  \cf6 \strokec6 -\cf9 \strokec9 0.2\cf4 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf5 \strokec5 Math\cf6 \strokec6 .\cf4 \strokec4 abs\cf6 \strokec6 (\cf4 \strokec4 rel\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 8\cf4 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
+\cb3           \cf2 \strokec2 const\cf4 \strokec4  rotate \cf6 \strokec6 =\cf4 \strokec4  rel \cf6 \strokec6 *\cf4 \strokec4  \cf6 \strokec6 -\cf9 \strokec9 15\cf6 \strokec6 ;\cf4 \strokec4  \cb1 \
+\
+\cb3           \cf2 \strokec2 return\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 div \cb1 \
+\cb3               key\cf6 \strokec6 =\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 id\cf6 \strokec6 \}\cf4 \strokec4  \cb1 \
+\cb3               className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 flex flex-col items-center justify-center text-center px-6"\cf4 \cb1 \strokec4 \
+\cb3               style\cf6 \strokec6 =\{\{\cf4 \cb1 \strokec4 \
+\cb3                 transform\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `scale(\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 scale\cf6 \strokec6 \}\cf7 \cb3 \strokec7 ) translateY(\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 translateY\cf6 \strokec6 \}\cf7 \cb3 \strokec7 vh) rotate(\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 rotate\cf6 \strokec6 \}\cf7 \cb3 \strokec7 deg)`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 opacity\cf6 \strokec6 :\cf4 \strokec4  opacity\cf6 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 filter\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `blur(\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 blur\cf6 \strokec6 \}\cf7 \cb3 \strokec7 px)`\cf6 \cb3 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 zIndex\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf4 \strokec4  \cf6 \strokec6 -\cf4 \strokec4  i\cf6 \strokec6 ,\cf4 \cb1 \strokec4 \
+\cb3                 transformOrigin\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'center center'\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 \}\}\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 \{\cf4 \strokec4 item\cf6 \strokec6 .\cf2 \strokec2 type\cf4 \strokec4  \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'intro'\cf4 \cb3 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "relative z-10 flex flex-col items-center justify-center pointer-events-none w-full h-full"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cb1 \
+\cb3                   \cf6 \strokec6 \{\cf8 \strokec8 /* LUA COM ECLIPSE */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-32 md:w-48 h-32 md:h-48 relative opacity-90 mix-blend-screen pointer-events-none mb-12"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full h-full rounded-full bg-white relative moon-glow-container"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                       \cf6 \strokec6 \{\cf8 \strokec8 /* Sombra negra animada. Ao passar, revela o GRADIENTE M\'c1GICO do fundo atrav\'e9s do mix-blend-screen! */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3                       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "moon-shadow"\cf4 \cb3 \strokec4 ></div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                       \cb1 \
+\cb3                       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 flex items-center justify-center z-10"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                         \cf6 \strokec6 <\cf5 \strokec5 VisoesLogo\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-[85%] h-auto drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"\cf4 \cb3 \strokec4  />\cb1 \
+\cb3                       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\{\cf7 \cb3 \strokec7 `absolute bottom-20 animate-bounce flex flex-col items-center transition-opacity duration-1000 \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 showHint \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \cb3 \strokec7 'opacity-60'\cf4 \cb3 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'opacity-0'\cf6 \cb3 \strokec6 \}\cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 \}>\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 span className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-xs uppercase tracking-widest mb-2 text-gray-400"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Role\cf4 \strokec4  para explorar\cf6 \strokec6 </\cf4 \strokec4 span\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-[1px] h-12 bg-gradient-to-b from-gray-400 to-transparent"\cf4 \cb3 \strokec4 ></div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\
+\cb3               \cf6 \strokec6 \{\cf4 \strokec4 item\cf6 \strokec6 .\cf2 \strokec2 type\cf4 \strokec4  \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'image'\cf4 \cb3 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3                 <>\cb1 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 z-0 flex items-center justify-center"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                      \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "magical-vision"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                        \cf6 \strokec6 <\cf4 \strokec4 img src\cf6 \strokec6 =\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 src\cf6 \strokec6 \}\cf4 \strokec4  alt\cf6 \strokec6 =\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 title\cf6 \strokec6 \}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full h-full object-cover opacity-40 mix-blend-screen pointer-events-none animate-[hueRotate_15s_linear_infinite]"\cf4 \cb3 \strokec4  />\cb1 \
+\cb3                      \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cb1 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "relative z-10 pointer-events-none"\cf4 \cb3 \strokec4  style\cf6 \strokec6 =\{\{\cf4 \strokec4  transform\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `rotate(\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 rotate \cf6 \strokec6 *\cf4 \strokec4  \cf6 \strokec6 -\cf9 \strokec9 0.5\cf6 \strokec6 \}\cf7 \cb3 \strokec7 deg)`\cf4 \cb3 \strokec4  \cf6 \strokec6 \}\}>\cf4 \cb1 \strokec4 \
+\cb3                      \cf6 \strokec6 \{\cf8 \strokec8 /* Efeito Aberra\'e7\'e3o Crom\'e1tica nos Textos (text-psychedelic) */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3                      \cf6 \strokec6 <\cf4 \strokec4 h2 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-4xl md:text-7xl font-serif text-psychedelic mb-4"\cf6 \cb3 \strokec6 >\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 title\cf6 \strokec6 \}</\cf4 \strokec4 h2\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                      \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-lg md:text-2xl text-[#01cdfe] tracking-wider font-light drop-shadow-[0_0_10px_rgba(1,205,254,0.8)]"\cf6 \cb3 \strokec6 >\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 subtitle\cf6 \strokec6 \}</\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 </>\cb1 \
+\cb3               \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\
+\cb3               \cf6 \strokec6 \{\cf4 \strokec4 item\cf6 \strokec6 .\cf2 \strokec2 type\cf4 \strokec4  \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'action'\cf4 \cb3 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "relative z-10 flex flex-col items-center pointer-events-none"\cf4 \cb3 \strokec4  style\cf6 \strokec6 =\{\{\cf4 \strokec4  transform\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `rotate(\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 rotate \cf6 \strokec6 *\cf4 \strokec4  \cf6 \strokec6 -\cf9 \strokec9 1\cf6 \strokec6 \}\cf7 \cb3 \strokec7 deg)`\cf4 \cb3 \strokec4  \cf6 \strokec6 \}\}>\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 h2 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-5xl md:text-7xl font-serif text-psychedelic mb-6"\cf6 \cb3 \strokec6 >\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 title\cf6 \strokec6 \}</\cf4 \strokec4 h2\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-xl text-gray-300 mb-10"\cf6 \cb3 \strokec6 >\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 subtitle\cf6 \strokec6 \}</\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 button \cb1 \
+\cb3                     onClick\cf6 \strokec6 =\{()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  changeView\cf6 \strokec6 (\cf7 \cb3 \strokec7 'portfolio'\cf6 \cb3 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3                     className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "pointer-events-auto px-10 py-4 glass-panel text-[#05ffa1] border-none font-bold uppercase tracking-widest hover:bg-[#05ffa1]/20 hover:text-white transition-all duration-300 hover:scale-110"\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf5 \strokec5 Ir\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 button\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 \})\}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 overflow-y-scroll overflow-x-hidden custom-scrollbar pointer-events-auto z-10"\cf4 \cb3 \strokec4  onScroll\cf6 \strokec6 =\{\cf4 \strokec4 handleScroll\cf6 \strokec6 \}>\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 div style\cf6 \strokec6 =\{\{\cf4 \strokec4  height\cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 $\{\cf4 \strokec4 scrollItems\cf6 \strokec6 .\cf4 \strokec4 length \cf6 \strokec6 *\cf4 \strokec4  \cf9 \strokec9 150\cf6 \strokec6 \}\cf7 \cb3 \strokec7 vh`\cf4 \cb3 \strokec4  \cf6 \strokec6 \}\}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full"\cf4 \cb3 \strokec4 ></div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf8 \cb3 \strokec8 // --- COMPONENTE PRINCIPAL ---\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 export\cf4 \strokec4  \cf2 \strokec2 default\cf4 \strokec4  \cf2 \strokec2 function\cf4 \strokec4  \cf5 \strokec5 App\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 activeView\cf6 \strokec6 ,\cf4 \strokec4  setActiveView\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf7 \cb3 \strokec7 'home'\cf6 \cb3 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 isMenuOpen\cf6 \strokec6 ,\cf4 \strokec4  setIsMenuOpen\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf2 \strokec2 false\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 selectedVideo\cf6 \strokec6 ,\cf4 \strokec4  setSelectedVideo\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  useState\cf6 \strokec6 (\cf2 \strokec2 null\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 const\cf4 \strokec4  changeView \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 view\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
+\cb3     setActiveView\cf6 \strokec6 (\cf4 \strokec4 view\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3     setIsMenuOpen\cf6 \strokec6 (\cf2 \strokec2 false\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 \};\cf4 \cb1 \strokec4 \
+\
+\cb3   \cf2 \strokec2 return\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3     \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "relative h-screen bg-[#010103] text-white font-sans overflow-hidden selection:bg-[#ff71ce] selection:text-white"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf5 \strokec5 StarBackground\cf4 \strokec4  />\cb1 \
+\
+\cb3       \cf6 \strokec6 \{\cf8 \strokec8 /* INDICADOR DE VERS\'c3O NA LATERAL */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "fixed bottom-12 left-4 md:left-6 origin-bottom-left -rotate-90 text-[10px] text-gray-500 tracking-[0.4em] uppercase z-50 pointer-events-none opacity-50 font-bold"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf5 \strokec5 Vers\cf10 \strokec10 \'e3\cf4 \strokec4 o \cf9 \strokec9 1.2\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 header className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "fixed w-full z-40 top-0 pointer-events-none"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 button \cb1 \
+\cb3           onClick\cf6 \strokec6 =\{()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  setIsMenuOpen\cf6 \strokec6 (\cf2 \strokec2 true\cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3           className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "pointer-events-auto absolute right-6 md:right-8 top-6 md:top-8 group w-12 h-12 flex items-center justify-center glass-panel rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105"\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 <\cf5 \strokec5 Star\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#05ffa1] group-hover:text-white transition-colors animate-[pulse_3s_infinite]"\cf4 \cb3 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 24\cf6 \strokec6 \}\cf4 \strokec4  fill\cf6 \strokec6 =\cf7 \cb3 \strokec7 "currentColor"\cf4 \cb3 \strokec4  fillOpacity\cf6 \strokec6 =\{\cf9 \strokec9 0.2\cf6 \strokec6 \}\cf4 \strokec4  />\cb1 \
+\cb3         \cf6 \strokec6 </\cf4 \strokec4 button\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 header\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 \{\cf8 \strokec8 /* Menu com fundo Vidro Fosco (Glassmorphism) e cores do gradiente transparecendo */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\{\cf7 \cb3 \strokec7 `fixed inset-0 z-50 glass-overlay transition-all duration-500 flex flex-col items-center justify-center \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 isMenuOpen \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \cb3 \strokec7 'opacity-100 pointer-events-auto'\cf4 \cb3 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'opacity-0 pointer-events-none'\cf6 \cb3 \strokec6 \}\cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 \}>\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 button \cb1 \
+\cb3           onClick\cf6 \strokec6 =\{()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  setIsMenuOpen\cf6 \strokec6 (\cf2 \strokec2 false\cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3           className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute top-8 right-8 text-[#ff71ce] hover:text-white transition-colors hover:rotate-90 duration-300"\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 <\cf5 \strokec5 X\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 40\cf6 \strokec6 \}\cf4 \strokec4  />\cb1 \
+\cb3         \cf6 \strokec6 </\cf4 \strokec4 button\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cb1 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 nav className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "flex flex-col items-center gap-8 text-3xl md:text-5xl font-serif"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 \{[\cf7 \cb3 \strokec7 'home'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf7 \cb3 \strokec7 'sobre'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf7 \cb3 \strokec7 'portfolio'\cf6 \cb3 \strokec6 ,\cf4 \strokec4  \cf7 \cb3 \strokec7 'contato'\cf6 \cb3 \strokec6 ].\cf4 \strokec4 map\cf6 \strokec6 ((\cf4 \strokec4 item\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 button\cb1 \
+\cb3               key\cf6 \strokec6 =\{\cf4 \strokec4 item\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3               onClick\cf6 \strokec6 =\{()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  changeView\cf6 \strokec6 (\cf4 \strokec4 item\cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3               \cf8 \strokec8 // O efeito 'text-psychedelic' agora est\'e1 aplicado a todos os itens!\cf4 \cb1 \strokec4 \
+\cb3               className\cf6 \strokec6 =\{\cf7 \cb3 \strokec7 `capitalize tracking-wider transition-all duration-300 hover:scale-110 text-psychedelic \cf6 \cb3 \strokec6 $\{\cf4 \strokec4 activeView \cf6 \strokec6 ===\cf4 \strokec4  item \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \cb3 \strokec7 'text-white'\cf4 \cb3 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf7 \cb3 \strokec7 'text-gray-400 hover:text-white'\cf6 \cb3 \strokec6 \}\cf7 \cb3 \strokec7 `\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 \{\cf4 \strokec4 item \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'home'\cf4 \cb3 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \cb3 \strokec7 'In\'edcio'\cf4 \cb3 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  item \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'sobre'\cf4 \cb3 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \cb3 \strokec7 'Quem Somos'\cf4 \cb3 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  item\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 </\cf4 \strokec4 button\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 ))\}\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 </\cf4 \strokec4 nav\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 main className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "relative z-10 w-full h-full pt-24 flex flex-col pointer-events-none"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "pointer-events-auto w-full h-full"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cb1 \
+\cb3           \cf6 \strokec6 \{\cf4 \strokec4 activeView \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'home'\cf4 \cb3 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf5 \strokec5 MagicalScrollHome\cf4 \strokec4  changeView\cf6 \strokec6 =\{\cf4 \strokec4 changeView\cf6 \strokec6 \}\cf4 \strokec4  />\cb1 \
+\cb3           \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\
+\cb3           \cf6 \strokec6 \{\cf4 \strokec4 activeView \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'sobre'\cf4 \cb3 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "h-full flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto w-full pb-10 px-6 md:px-12 gap-10 md:gap-20 animate-[fadeIn_0.5s_ease-out] overflow-y-auto custom-scrollbar"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "flex-1 space-y-6 pt-10 md:pt-0"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "mb-8"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 h2 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-3xl md:text-5xl font-serif text-psychedelic text-white"\cf6 \cb3 \strokec6 >\cf5 \strokec5 A\cf4 \strokec4  \cf5 \strokec5 Nossa\cf4 \strokec4  \cf5 \strokec5 Hist\cf10 \strokec10 \'f3\cf4 \strokec4 ria\cf6 \strokec6 </\cf4 \strokec4 h2\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#05ffa1] text-sm tracking-widest uppercase mt-2 drop-shadow-[0_0_5px_rgba(5,255,161,0.5)]"\cf6 \cb3 \strokec6 >\cf5 \strokec5 A\cf4 \strokec4  g\cf10 \strokec10 \'e9\cf4 \strokec4 nese da magia visual\cf6 \strokec6 </\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cb1 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "space-y-4 text-gray-200 text-lg font-light leading-relaxed"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf5 \strokec5 O\cf4 \strokec4  nosso est\cf10 \strokec10 \'fa\cf4 \strokec4 dio nasceu da cren\cf10 \strokec10 \'e7\cf4 \strokec4 a de que cada narrativa possui m\cf10 \strokec10 \'fa\cf4 \strokec4 ltiplas perspetivas\cf6 \strokec6 ,\cf4 \strokec4  prontas para serem reveladas pela luz certa\cf6 \strokec6 .\cf4 \strokec4  \cf5 \strokec5 N\cf10 \strokec10 \'e3\cf4 \strokec4 o nos limitamos a registar imagens\cf6 \strokec6 ;\cf4 \strokec4  n\cf10 \strokec10 \'f3\cf4 \strokec4 s capturamos a ess\cf10 \strokec10 \'ea\cf4 \strokec4 ncia e a magia invis\cf10 \strokec10 \'ed\cf4 \strokec4 vel de cada momento\cf6 \strokec6 .\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf5 \strokec5 Somos\cf4 \strokec4  uma equipa de contadores de hist\cf10 \strokec10 \'f3\cf4 \strokec4 rias\cf6 \strokec6 ,\cf4 \strokec4  ilusionistas visuais e t\cf10 \strokec10 \'e9\cf4 \strokec4 cnicos obcecados pela perfei\cf10 \strokec10 \'e7\'e3\cf4 \strokec4 o\cf6 \strokec6 .\cf4 \strokec4  \cf5 \strokec5 Ao\cf4 \strokec4  longo dos anos\cf6 \strokec6 ,\cf4 \strokec4  transform\cf10 \strokec10 \'e1\cf4 \strokec4 mos ideias abstratas em realidades cinematogr\cf10 \strokec10 \'e1\cf4 \strokec4 ficas palp\cf10 \strokec10 \'e1\cf4 \strokec4 veis\cf6 \strokec6 ,\cf4 \strokec4  combinando a arte cl\cf10 \strokec10 \'e1\cf4 \strokec4 ssica da cinematografia com os mais recentes feiti\cf10 \strokec10 \'e7\cf4 \strokec4 os de efeitos visuais \cf6 \strokec6 (\cf5 \strokec5 VFX\cf6 \strokec6 ).\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 \{\cf8 \strokec8 /* Cart\'f5es Glassmorphism */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "glass-panel p-5 rounded-xl hover:-translate-y-1 transition-transform"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf5 \strokec5 Eye\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#01cdfe] mb-3"\cf4 \cb3 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 28\cf6 \strokec6 \}\cf4 \strokec4  />\cb1 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 h4 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-white font-serif text-xl mb-2"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Vis\cf10 \strokec10 \'e3\cf4 \strokec4 o \cf10 \strokec10 \'da\cf4 \strokec4 nica\cf6 \strokec6 </\cf4 \strokec4 h4\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-sm text-gray-300"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Encontramos\cf4 \strokec4  o \cf10 \strokec10 \'e2\cf4 \strokec4 ngulo que transforma o trivial em extraordin\cf10 \strokec10 \'e1\cf4 \strokec4 rio\cf6 \strokec6 .</\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "glass-panel p-5 rounded-xl hover:-translate-y-1 transition-transform"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf5 \strokec5 Wand2\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#b967ff] mb-3"\cf4 \cb3 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 28\cf6 \strokec6 \}\cf4 \strokec4  />\cb1 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 h4 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-white font-serif text-xl mb-2"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Magia\cf4 \strokec4  \cf5 \strokec5 Visual\cf6 \strokec6 </\cf4 \strokec4 h4\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-sm text-gray-300"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Da\cf4 \strokec4  p\cf10 \strokec10 \'f3\cf4 \strokec4 s\cf6 \strokec6 -\cf4 \strokec4 produ\cf10 \strokec10 \'e7\'e3\cf4 \strokec4 o aos efeitos pr\cf10 \strokec10 \'e1\cf4 \strokec4 ticos\cf6 \strokec6 ,\cf4 \strokec4  criamos ilus\cf10 \strokec10 \'f5\cf4 \strokec4 es perfeitas\cf6 \strokec6 .</\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cb1 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "flex-1 hidden md:flex items-center justify-center relative"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "relative w-full max-w-md aspect-square flex items-center justify-center"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 \{\cf8 \strokec8 /* Brilho de fundo atualizado para as novas cores */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 bg-[#b967ff]/30 rounded-full blur-[100px] animate-[pulse_4s_ease-in-out_infinite]"\cf4 \cb3 \strokec4 ></div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cb1 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 img \cb1 \
+\cb3                     src\cf6 \strokec6 =\cf7 \cb3 \strokec7 "visoes%20logo.jpg"\cf4 \cb3 \strokec4  \cb1 \
+\cb3                     alt\cf6 \strokec6 =\cf7 \cb3 \strokec7 "Vis\'f5es Filmes Logo"\cf4 \cb3 \strokec4  \cb1 \
+\cb3                     className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full h-full object-contain mix-blend-screen drop-shadow-[0_0_50px_rgba(185,103,255,0.6)] relative z-10 animate-[fadeIn_1s_ease-out]"\cf4 \cb1 \strokec4 \
+\cb3                   />\cb1 \
+\cb3                 \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\
+\cb3           \cf6 \strokec6 \{\cf4 \strokec4 activeView \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'portfolio'\cf4 \cb3 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "h-full flex flex-col max-w-7xl mx-auto w-full pb-10 px-6 md:px-12 animate-[fadeIn_0.5s_ease-out]"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "mb-8"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 h2 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-3xl md:text-4xl font-serif text-psychedelic text-white"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Portf\cf10 \strokec10 \'f3\cf4 \strokec4 lio \cf5 \strokec5 Criativo\cf6 \strokec6 </\cf4 \strokec4 h2\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#01cdfe] text-sm tracking-widest uppercase mt-2 drop-shadow-[0_0_5px_rgba(1,205,254,0.5)]"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Nossas\cf4 \strokec4  vis\cf10 \strokec10 \'f5\cf4 \strokec4 es em movimento\cf6 \strokec6 </\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cb1 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 overflow-y-auto pr-2 custom-scrollbar"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 \{\cf4 \strokec4 portfolioData\cf6 \strokec6 .\cf4 \strokec4 map\cf6 \strokec6 ((\cf4 \strokec4 item\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 <\cf4 \strokec4 div \cb1 \
+\cb3                     key\cf6 \strokec6 =\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 id\cf6 \strokec6 \}\cf4 \strokec4  \cb1 \
+\cb3                     className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "group relative aspect-video rounded-xl overflow-hidden cursor-pointer glass-panel"\cf4 \cb1 \strokec4 \
+\cb3                     onClick\cf6 \strokec6 =\{()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  setSelectedVideo\cf6 \strokec6 (\cf4 \strokec4 item\cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 \{\cf8 \strokec8 /* Filtro iridescente ao passar o rato (hue-rotate) */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 img src\cf6 \strokec6 =\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 image\cf6 \strokec6 \}\cf4 \strokec4  alt\cf6 \strokec6 =\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 title\cf6 \strokec6 \}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 group-hover:hue-rotate-15 transition-all duration-700"\cf4 \cb3 \strokec4  />\cb1 \
+\cb3                     \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent flex flex-col justify-end p-6 border border-transparent transition-colors"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                       \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#ff71ce] text-xs font-bold tracking-widest uppercase"\cf6 \cb3 \strokec6 >\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 category\cf6 \strokec6 \}</\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                       \cf6 \strokec6 <\cf4 \strokec4 h3 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-xl font-serif text-white group-hover:text-psychedelic transition-all"\cf6 \cb3 \strokec6 >\{\cf4 \strokec4 item\cf6 \strokec6 .\cf4 \strokec4 title\cf6 \strokec6 \}</\cf4 \strokec4 h3\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                       \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                         \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-14 h-14 rounded-full glass-panel flex items-center justify-center"\cf4 \cb3 \strokec4 ><\cf5 \strokec5 Play\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 20\cf6 \strokec6 \}\cf4 \strokec4  fill\cf6 \strokec6 =\cf7 \cb3 \strokec7 "currentColor"\cf4 \cb3 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "ml-1 text-[#05ffa1]"\cf4 \cb3 \strokec4  /></div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                       \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                     \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                   \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 ))\}\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\
+\cb3           \cf6 \strokec6 \{\cf4 \strokec4 activeView \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \cb3 \strokec7 'contato'\cf4 \cb3 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "h-full flex flex-col md:flex-row gap-10 items-center justify-center max-w-6xl mx-auto w-full px-6 md:px-12 animate-[fadeIn_0.5s_ease-out] overflow-y-auto custom-scrollbar pb-10"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cb1 \
+\cb3               \cf6 \strokec6 \{\cf8 \strokec8 /* Lado Esquerdo: Contato Tradicional */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "flex-1 w-full text-center md:text-left pt-10 md:pt-0"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf5 \strokec5 Film\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 48\cf6 \strokec6 \}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#01cdfe] mb-6 drop-shadow-[0_0_15px_rgba(1,205,254,0.6)] mx-auto md:mx-0"\cf4 \cb3 \strokec4  />\cb1 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 h2 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-3xl md:text-5xl font-serif text-psychedelic text-white mb-4"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Inicie\cf4 \strokec4  uma \cf5 \strokec5 Vis\cf10 \strokec10 \'e3\cf4 \strokec4 o\cf6 \strokec6 </\cf4 \strokec4 h2\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-gray-300 mb-8 max-w-md"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Pronto\cf4 \strokec4  para dar vida \cf10 \strokec10 \'e0\cf4 \strokec4  sua ideia\cf6 \strokec6 ?\cf4 \strokec4  \cf5 \strokec5 Entre\cf4 \strokec4  em contato connosco atrav\cf10 \strokec10 \'e9\cf4 \strokec4 s dos canais tradicionais ou explore \cf2 \strokec2 as\cf4 \strokec4  possibilidades m\cf10 \strokec10 \'e1\cf4 \strokec4 gicas com o nosso \cf5 \strokec5 Or\cf10 \strokec10 \'e1\cf4 \strokec4 culo\cf6 \strokec6 .</\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cb1 \
+\cb3                 \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full glass-panel p-8 rounded-2xl text-left space-y-4 max-w-md mx-auto md:mx-0"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                    \cf6 \strokec6 <\cf4 \strokec4 a href\cf6 \strokec6 =\cf7 \cb3 \strokec7 "#"\cf4 \cb3 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "flex items-center gap-4 text-gray-200 hover:text-[#ff71ce] transition-colors p-4 rounded-lg hover:bg-white/5"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                      \cf6 \strokec6 <\cf5 \strokec5 Mail\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 24\cf6 \strokec6 \}\cf4 \strokec4  /> \cf6 \strokec6 <\cf4 \strokec4 span className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-lg"\cf6 \cb3 \strokec6 >\cf4 \strokec4 contato\cf10 \strokec10 @\cf4 \strokec4 estudio\cf6 \strokec6 .\cf4 \strokec4 com\cf6 \strokec6 </\cf4 \strokec4 span\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                    \cf6 \strokec6 </\cf4 \strokec4 a\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                    \cf6 \strokec6 <\cf4 \strokec4 a href\cf6 \strokec6 =\cf7 \cb3 \strokec7 "#"\cf4 \cb3 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "flex items-center gap-4 text-gray-200 hover:text-[#b967ff] transition-colors p-4 rounded-lg hover:bg-white/5"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                      \cf6 \strokec6 <\cf5 \strokec5 Instagram\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 24\cf6 \strokec6 \}\cf4 \strokec4  /> \cf6 \strokec6 <\cf4 \strokec4 span className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-lg"\cf6 \cb3 \strokec6 >\cf10 \strokec10 @\cf4 \strokec4 estudiocriativo\cf6 \strokec6 </\cf4 \strokec4 span\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                    \cf6 \strokec6 </\cf4 \strokec4 a\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                    \cf6 \strokec6 <\cf4 \strokec4 button className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full mt-4 py-4 glass-panel hover:bg-white/10 text-white font-bold rounded-lg uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(5,255,161,0.2)] hover:shadow-[0_0_25px_rgba(5,255,161,0.5)]"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                       \cf5 \strokec5 Solicitar\cf4 \strokec4  \cf5 \strokec5 Or\cf10 \strokec10 \'e7\cf4 \strokec4 amento\cb1 \
+\cb3                    \cf6 \strokec6 </\cf4 \strokec4 button\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                 \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3               \cf6 \strokec6 \{\cf8 \strokec8 /* Lado Direito: Gemini AI Or\'e1culo */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "flex-1 w-full flex items-center justify-center"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3                  \cf6 \strokec6 <\cf5 \strokec5 VisionOracle\cf4 \strokec4  />\cb1 \
+\cb3               \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3             \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 </\cf4 \strokec4 main\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 \{\cf8 \strokec8 /* MODAL DE V\'cdDEO */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 \{\cf4 \strokec4 selectedVideo \cf6 \strokec6 &&\cf4 \strokec4  \cf6 \strokec6 (\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "fixed inset-0 z-[100] glass-overlay flex items-center justify-center p-4"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 <\cf4 \strokec4 button onClick\cf6 \strokec6 =\{()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  setSelectedVideo\cf6 \strokec6 (\cf2 \strokec2 null\cf6 \strokec6 )\}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute top-6 right-6 text-white hover:text-[#ff71ce] transition-colors"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf5 \strokec5 X\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 32\cf6 \strokec6 \}\cf4 \strokec4  />\cb1 \
+\cb3           \cf6 \strokec6 </\cf4 \strokec4 button\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "w-full max-w-4xl aspect-video glass-panel rounded-xl flex items-center justify-center relative overflow-hidden"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 img src\cf6 \strokec6 =\{\cf4 \strokec4 selectedVideo\cf6 \strokec6 .\cf4 \strokec4 image\cf6 \strokec6 \}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "absolute inset-0 w-full h-full object-cover opacity-40 blur-md animate-[hueRotate_10s_linear_infinite]"\cf4 \cb3 \strokec4  alt\cf6 \strokec6 =\cf7 \cb3 \strokec7 "bg"\cf4 \cb3 \strokec4  />\cb1 \
+\cb3             \cf6 \strokec6 <\cf4 \strokec4 div className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "relative z-10 text-center flex flex-col items-center"\cf6 \cb3 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 <\cf5 \strokec5 Play\cf4 \strokec4  size\cf6 \strokec6 =\{\cf9 \strokec9 48\cf6 \strokec6 \}\cf4 \strokec4  className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#05ffa1] mb-4 drop-shadow-[0_0_15px_rgba(5,255,161,1)]"\cf4 \cb3 \strokec4  fill\cf6 \strokec6 =\cf7 \cb3 \strokec7 "currentColor"\cf4 \cb3 \strokec4  />\cb1 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 h3 className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-2xl font-serif text-white text-psychedelic"\cf6 \cb3 \strokec6 >\{\cf4 \strokec4 selectedVideo\cf6 \strokec6 .\cf4 \strokec4 title\cf6 \strokec6 \}</\cf4 \strokec4 h3\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3               \cf6 \strokec6 <\cf4 \strokec4 p className\cf6 \strokec6 =\cf7 \cb3 \strokec7 "text-[#b967ff] tracking-widest uppercase text-sm mt-2 font-bold"\cf6 \cb3 \strokec6 >\cf5 \strokec5 Em\cf4 \strokec4  breve\cf6 \strokec6 </\cf4 \strokec4 p\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3             \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3           \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3         \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 )\}\cf4 \cb1 \strokec4 \
+\
+\cb3       \cf6 \strokec6 \{\cf8 \strokec8 /* ESTILOS CSS GLOBAIS M\'c1GICOS/PSICOD\'c9LICOS */\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
+\cb3       \cf6 \strokec6 <\cf4 \strokec4 style\cf6 \strokec6 >\{\cf7 \cb3 \strokec7 `\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf7 \cb3 \strokec7         /* Efeito de Aberra\'e7\'e3o Crom\'e1tica 3D nos T\'edtulos */\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .text-psychedelic \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           text-shadow: \cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7             3px 0px 0px rgba(255, 113, 206, 0.7), /* Magenta Neon */\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7             -3px 0px 0px rgba(1, 205, 254, 0.7), /* Ciano Neon */\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7             0px 0px 15px rgba(255, 255, 255, 0.4);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           letter-spacing: 2px;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7         /* Glassmorphism (Textura de Vidro Fosco/M\'e1gico) */\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .glass-panel \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           background: rgba(255, 255, 255, 0.05);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           backdrop-filter: blur(12px);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           -webkit-backdrop-filter: blur(12px);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           border: 1px solid rgba(255, 255, 255, 0.1);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .glass-overlay \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           background: rgba(5, 1, 15, 0.7);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           backdrop-filter: blur(15px);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           -webkit-backdrop-filter: blur(15px);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7         /* Anima\'e7\'f5es de Cores Trip */\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         @keyframes hueRotate \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           0% \{ filter: hue-rotate(0deg) saturate(1.2); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           50% \{ filter: hue-rotate(45deg) saturate(1.5); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           100% \{ filter: hue-rotate(0deg) saturate(1.2); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7         /* Anima\'e7\'e3o das fases da lua */\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .moon-shadow \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           position: absolute;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           top: 0;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           left: 0;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           width: 100%;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           height: 100%;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           border-radius: 50%;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           background-color: #000000;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           box-shadow: 0 0 10px 5px #000000;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           animation: moonPhases 20s linear infinite;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         @keyframes moonPhases \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           0% \{ transform: translate(110%, -110%) scale(1.1); \}   \cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           50% \{ transform: translate(0%, 0%) scale(1.1); \}       \cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           100% \{ transform: translate(-110%, 110%) scale(1.1); \} \cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7         /* Brilho da Lua: Forte Branca, Some Preta, leve tom violeta */\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .moon-glow-container \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           animation: moonGlowAnim 20s linear infinite;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         @keyframes moonGlowAnim \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           0%, 100% \{ box-shadow: 0 0 60px 10px rgba(185, 103, 255, 0.4); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           45%, 55% \{ box-shadow: 0 0 0px 0px rgba(255, 255, 255, 0); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7         .magical-vision \{\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           width: 100vw;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           height: 100vh;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           overflow: hidden;\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           mask-image: radial-gradient(ellipse at center, black 15%, rgba(0,0,0,0.3) 45%, transparent 65%);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7           -webkit-mask-image: radial-gradient(ellipse at center, black 15%, rgba(0,0,0,0.3) 45%, transparent 65%);\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         \}\cf4 \cb1 \strokec4 \
+\
+\cf7 \cb3 \strokec7         @keyframes fadeIn \{ from \{ opacity: 0; transform: translateY(10px); \} to \{ opacity: 1; transform: translateY(0); \} \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         @keyframes fadeOpacity \{ from \{ opacity: 0; \} to \{ opacity: 1; \} \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .custom-scrollbar::-webkit-scrollbar \{ width: 6px; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .custom-scrollbar::-webkit-scrollbar-track \{ background: transparent; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .custom-scrollbar::-webkit-scrollbar-thumb \{ background: rgba(185, 103, 255, 0.4); border-radius: 10px; \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7         .custom-scrollbar::-webkit-scrollbar-thumb:hover \{ background: rgba(255, 113, 206, 0.6); \}\cf4 \cb1 \strokec4 \
+\cf7 \cb3 \strokec7       `\cf6 \cb3 \strokec6 \}</\cf4 \strokec4 style\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb3     \cf6 \strokec6 </\cf4 \strokec4 div\cf6 \strokec6 >\cf4 \cb1 \strokec4 \
+\cb3   \cf6 \strokec6 );\cf4 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
+}
