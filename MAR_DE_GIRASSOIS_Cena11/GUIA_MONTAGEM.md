@@ -28,7 +28,7 @@ Se for usar **só um** por enquanto: **After Effects**.
 ## 2. Configuração do projeto (AE)
 
 1. `Composition > New Composition`
-   - Preset: **HDTV 1080 25** (ou 24, conforme o resto do filme — confirme o fps padrão do projeto).
+   - Preset: **HDTV 1080 24** (fps do projeto = **24**).
    - Resolução: **1920×1080** (Full HD). Vários materiais são 4K, então dá pra
      dar zoom/reframe sem perder qualidade.
    - Duração: **2:30** (2min30s).
@@ -124,3 +124,13 @@ agrupados de modo destacado** — por isso a pré-comp única `PINCELADAS_FINAL`
    fechar cor + export.
 
 Dúvidas de qualquer passo, me chama que eu detalho.
+
+---
+
+## 7. Montagem automática (script)
+
+Não precisa montar o esqueleto na mão: use **`00_PROJETO/Montar_Cena11.jsx`**.
+Ele cria o projeto a 24 fps, importa os clipes, monta os 9 blocos na ordem,
+posiciona tudo na `MASTER_Cena11`, aplica os Screen e já cria a linha de costura
+e o matte do apagamento. Passo a passo em **`00_PROJETO/COMO_RODAR_O_SCRIPT.md`**.
+Depois de rodar, faça só os ajustes artísticos (chroma key, sincronia, cor).
