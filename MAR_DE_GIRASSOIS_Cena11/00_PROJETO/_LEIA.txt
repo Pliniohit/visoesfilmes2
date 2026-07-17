@@ -1,0 +1,5 @@
+Salve aqui os arquivos de projeto:
+  - MASTER_Cena11.aep   (After Effects)
+  - Cena11.prproj       (Premiere, se usar o fluxo híbrido)
+
+Mantenha só UMA versão "boa" + versões com data (ex: MASTER_Cena11_2026-07-17.aep).
