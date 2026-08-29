@@ -81,17 +81,21 @@ subject:("open call" OR "chamada aberta" OR "chamada para artistas" OR "edital d
 
 ---
 
-### 🤝 Filtro B — Reuniões (relatórios do Read AI)
-Baseado no remetente do Read AI (mais confiável). **Confirmar o endereço exato** — ver seção 4.
+### 🤝 Filtro B — Reuniões (relatórios do Read AI) — ✅ REMETENTE CONFIRMADO
+Os relatórios de reunião do Read AI vêm **todos** de `executiveassistant@e.read.ai`:
 
 ```
-from:(read.ai)
+from:(executiveassistant@e.read.ai)
 ```
 → Aplicar marcador: **Reuniões**
 
-> Se o remetente exato for algo como `notes@read.ai` ou `no-reply@read.ai`, o `from:(read.ai)`
-> já cobre todos (o Gmail casa pelo domínio). Reforço por assunto, se quiser:
-> `from:(read.ai) OR subject:("Read AI" OR "meeting report" OR "resumo da reunião")`
+> ⚠️ **NÃO usar `from:(read.ai)` genérico.** O Read AI usa outro endereço,
+> `support@e.read.ai`, só para avisos de conta/segurança (login novo, reautorizar integração) —
+> esses **não** são reunião e devem ir para *Segurança*, não para *Reuniões*.
+> Por isso o filtro mira só o `executiveassistant@e.read.ai`.
+>
+> Reforço opcional por assunto (redundante, mas seguro):
+> `from:(executiveassistant@e.read.ai) OR subject:("Read Meeting Report" OR "Relatório de Reunião Read")`
 
 ---
 
@@ -106,8 +110,8 @@ from:(read.ai)
 
 ## 4. Ajustes finos a confirmar antes de criar
 
-- [ ] **Endereço exato do Read AI:** buscar no Gmail `Read AI` e ver o `De:` (ex.: `notes@read.ai`).
-      Ajustar o Filtro B se necessário.
+- [x] **Endereço exato do Read AI:** ✅ confirmado = `executiveassistant@e.read.ai`
+      (avisos de conta vêm de `support@e.read.ai` → deixar fora de *Reuniões*).
 - [ ] **Remetentes de arte recorrentes** que faltem na lista do Filtro A (adicionar dentro do `from:( ... OR ... )`).
 - [ ] Decidir entre **Filtro A** (simples) vs **A+** (preciso) para Exposições e Editais.
 - [ ] Se quiser que os itens etiquetados **saiam da Caixa de Entrada** automaticamente, marcar também
